@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vue formulaire du wizard de refus -->
+        <record id="view_demande_refus_wizard_form" model="ir.ui.view">
+            <field name="name">gestion.deplacement.demande.refus.wizard.form</field>
+            <field name="model">gestion.deplacement.demande.refus.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Refuser la demande">
+                    <group>
+                        <field name="demande_id" invisible="1"/>
+                        <field name="motif_refus" 
+                               placeholder="Expliquez pourquoi vous refusez cette demande..."
+                               nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_confirm_refus" 
+                                string="Confirmer le refus" 
+                                type="object" 
+                                class="btn-danger"/>
+                        <button string="Annuler" 
+                                class="btn-secondary" 
+                                special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

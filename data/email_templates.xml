@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- Template: Demande soumise -->
+    <record id="mail_template_demande_submitted" model="mail.template">
+      <field name="name">Demande de déplacement - Soumise</field>
+      <field name="model_id" ref="model_gestion_deplacement_demande"/>
+      <field name="subject">[Déplacement] Demande ${object.name} soumise</field>
+      <field name="email_from">${object.employee_id.user_id.email_formatted or object.employee_id.work_email or ''}</field>
+      <field name="partner_to">${object.manager_id.user_id.partner_id.id if object.manager_id.user_id else ''}</field>
+      
+      <field name="body_html"><![CDATA[
+        <p>Bonjour ${object.manager_id.name or 'Manager'},</p>
+        <p>Une nouvelle demande de déplacement a été soumise par <strong>${object.employee_id.name}</strong>.</p>
+        <ul>
+          <li><strong>Référence :</strong> ${object.name}</li>
+          <li><strong>Destination :</strong> ${object.destination_city_id.name}</li>
+          <li><strong>Dates :</strong> Du ${object.date_debut} au ${object.date_fin} (${object.nb_jours} jour(s))</li>
+          <li><strong>Mode de transport :</strong> ${dict(object._fields['mode_transport'].selection).get(object.mode_transport)}</li>
+          <li><strong>Frais estimés :</strong> ${object.montant_frais} MAD</li>
+        </ul>
+        <p>Merci de procéder à la validation.</p>
+        <p>Cordialement,<br/>Système Gestion Déplacements</p>
+      ]]></field>
+    </record>
+
+    <!-- Template: Demande approuvée (notification à l'employé ET au DAF) -->
+    <record id="mail_template_demande_approved" model="mail.template">
+      <field name="name">Demande de déplacement - Approuvée</field>
+      <field name="model_id" ref="model_gestion_deplacement_demande"/>
+      <field name="subject">[Déplacement] Demande ${object.name} approuvée</field>
+      <field name="email_from">${object.manager_id.user_id.email_formatted or object.manager_id.work_email or ''}</field>
+      <field name="partner_to">${object.employee_id.user_id.partner_id.id if object.employee_id.user_id else ''}</field>
+      
+      <field name="body_html"><![CDATA[
+        <p>Bonjour ${object.employee_id.name},</p>
+        <p>Bonne nouvelle ! Votre demande de déplacement <strong>${object.name}</strong> a été <strong style="color:green;">approuvée</strong> par ${object.manager_id.name}.</p>
+        <ul>
+          <li><strong>Destination :</strong> ${object.destination_city_id.name}</li>
+          <li><strong>Dates :</strong> Du ${object.date_debut} au ${object.date_fin} (${object.nb_jours} jour(s))</li>
+          <li><strong>Mode de transport :</strong> ${dict(object._fields['mode_transport'].selection).get(object.mode_transport)}</li>
+          <li><strong>Frais estimés :</strong> ${object.montant_frais} MAD</li>
+        </ul>
+        <p>Le service DAF va procéder aux achats nécessaires (billets, réservations).</p>
+        <p>Bon voyage !<br/>Système Gestion Déplacements</p>
+      ]]></field>
+    </record>
+
+    <!-- Template: Demande refusée -->
+    <record id="mail_template_demande_refused" model="mail.template">
+      <field name="name">Demande de déplacement - Refusée</field>
+      <field name="model_id" ref="model_gestion_deplacement_demande"/>
+      <field name="subject">[Déplacement] Demande ${object.name} refusée</field>
+      <field name="email_from">${object.manager_id.user_id.email_formatted or object.manager_id.work_email or ''}</field>
+      <field name="partner_to">${object.employee_id.user_id.partner_id.id if object.employee_id.user_id else ''}</field>
+      
+      <field name="body_html"><![CDATA[
+        <p>Bonjour ${object.employee_id.name},</p>
+        <p>Votre demande de déplacement <strong>${object.name}</strong> a été <span style="color:red;">refusée</span> par ${object.manager_id.name}.</p>
+        <p><strong>Motif :</strong> ${object.motif_refus or 'Non spécifié'}</p>
+        <p>Vous pouvez la remettre en brouillon pour la corriger et la soumettre à nouveau si nécessaire.</p>
+        <p>Cordialement,<br/>Système Gestion Déplacements</p>
+      ]]></field>
+    </record>
+
+    <!-- Template: Notification au DAF (demande approuvée à traiter) -->
+    <record id="mail_template_demande_approved_daf" model="mail.template">
+      <field name="name">Demande de déplacement - À traiter (DAF)</field>
+      <field name="model_id" ref="model_gestion_deplacement_demande"/>
+      <field name="subject">[Déplacement] Demande ${object.name} à traiter</field>
+      <field name="email_from">${object.manager_id.user_id.email_formatted or object.manager_id.work_email or ''}</field>
+      <field name="auto_delete" eval="True"/>
+      
+      <field name="body_html"><![CDATA[
+        <p>Bonjour,</p>
+        <p>La demande de déplacement <strong>${object.name}</strong> de <strong>${object.employee_id.name}</strong> a été approuvée par ${object.manager_id.name}.</p>
+        <ul>
+          <li><strong>Employé :</strong> ${object.employee_id.name}</li>
+          <li><strong>Destination :</strong> ${object.destination_city_id.name} ${' (International)' if object.is_international else '(National)'}</li>
+          <li><strong>Dates :</strong> Du ${object.date_debut} au ${object.date_fin} (${object.nb_jours} jour(s))</li>
+          <li><strong>Mode de transport :</strong> ${dict(object._fields['mode_transport'].selection).get(object.mode_transport)}</li>
+          % if object.vehicule_id:
+          <li><strong>Véhicule :</strong> ${object.vehicule_id.name} (${object.vehicule_id.immatriculation})</li>
+          % endif
+          % if object.classe_voyage:
+          <li><strong>Classe :</strong> ${dict(object._fields['classe_voyage'].selection).get(object.classe_voyage)}</li>
+          % endif
+          <li><strong>Frais estimés :</strong> ${object.montant_frais} MAD</li>
+        </ul>
+        <p>Merci de procéder aux achats nécessaires (billets, réservations, ordres de mission).</p>
+        <p>Cordialement,<br/>Système Gestion Déplacements</p>
+      ]]></field>
+    </record>
+  </data>
+</odoo>

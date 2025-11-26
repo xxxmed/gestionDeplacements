@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- List View -->
+    <record id="view_service_vehicule_list" model="ir.ui.view">
+      <field name="name">gestion.deplacement.service.vehicule.list</field>
+      <field name="model">gestion.deplacement.service.vehicule</field>
+      <field name="arch" type="xml">
+        <list string="Véhicules de Service">
+          <field name="name"/>
+          <field name="immatriculation"/>
+          <field name="marque"/>
+          <field name="modele"/>
+          <field name="company_id" groups="base.group_multi_company"/>
+        </list>
+      </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_service_vehicule_form" model="ir.ui.view">
+      <field name="name">gestion.deplacement.service.vehicule.form</field>
+      <field name="model">gestion.deplacement.service.vehicule</field>
+      <field name="arch" type="xml">
+        <form string="Véhicule de Service">
+          <sheet>
+            <group>
+              <field name="name"/>
+              <field name="immatriculation"/>
+              <field name="marque"/>
+              <field name="modele"/>
+              <field name="company_id" groups="base.group_multi_company"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_service_vehicule" model="ir.actions.act_window">
+      <field name="name">Véhicules de Service</field>
+      <field name="res_model">gestion.deplacement.service.vehicule</field>
+      <field name="view_mode">list,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Créer un véhicule de service
+        </p>
+        <p>
+          Gérez les véhicules de service de votre entreprise.
+        </p>
+      </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_service_vehicule"
+              name="Véhicules de Service"
+              parent="menu_gestion_deplacement_root"
+              action="action_service_vehicule"
+              sequence="30"/>
+
+  </data>
+</odoo>

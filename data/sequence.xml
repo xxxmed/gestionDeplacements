@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Séquence pour la référence -->
+        <record id="seq_gestion_deplacement_demande" model="ir.sequence">
+            <field name="name">Demande de Déplacement</field>
+            <field name="code">gestion.deplacement.demande</field>
+            <field name="prefix">DEP</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+    </data>
+</odoo>

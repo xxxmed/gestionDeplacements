@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_ville" model="ir.actions.act_window">
+            <field name="name">Villes</field>
+            <field name="res_model">gestion.deplacement.ville</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Creer une nouvelle ville
+                </p>
+            </field>
+        </record>
+
+        <record id="view_ville_list" model="ir.ui.view">
+            <field name="name">gestion.deplacement.ville.list</field>
+            <field name="model">gestion.deplacement.ville</field>
+            <field name="arch" type="xml">
+                <list string="Villes" editable="bottom">
+                    <field name="name"/>
+                    <field name="country_id"/>
+                    <field name="code_postal" optional="hide"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_ville_form" model="ir.ui.view">
+            <field name="name">gestion.deplacement.ville.form</field>
+            <field name="model">gestion.deplacement.ville</field>
+            <field name="arch" type="xml">
+                <form string="Ville">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="country_id"/>
+                            <field name="code_postal"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ville_search" model="ir.ui.view">
+            <field name="name">gestion.deplacement.ville.search</field>
+            <field name="model">gestion.deplacement.ville</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="country_id"/>
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

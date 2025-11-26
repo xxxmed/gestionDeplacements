@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data noupdate="1">
+    <!-- Morocco major cities -->
+    <record id="ville_casablanca" model="gestion.deplacement.ville">
+      <field name="name">Casablanca</field>
+      <field name="country_id" ref="base.ma"/>
+      <field name="code_postal">20000</field>
+      <field name="active">True</field>
+    </record>
+    <record id="ville_rabat" model="gestion.deplacement.ville">
+      <field name="name">Rabat</field>
+      <field name="country_id" ref="base.ma"/>
+      <field name="code_postal">10000</field>
+      <field name="active">True</field>
+    </record>
+    <record id="ville_marrakech" model="gestion.deplacement.ville">
+      <field name="name">Marrakech</field>
+      <field name="country_id" ref="base.ma"/>
+      <field name="code_postal">40000</field>
+      <field name="active">True</field>
+    </record>
+    <record id="ville_fes" model="gestion.deplacement.ville">
+      <field name="name">Fès</field>
+      <field name="country_id" ref="base.ma"/>
+      <field name="code_postal">30000</field>
+      <field name="active">True</field>
+    </record>
+    <record id="ville_tanger" model="gestion.deplacement.ville">
+      <field name="name">Tanger</field>
+      <field name="country_id" ref="base.ma"/>
+      <field name="code_postal">90000</field>
+      <field name="active">True</field>
+    </record>
+    <record id="ville_agadir" model="gestion.deplacement.ville">
+      <field name="name">Agadir</field>
+      <field name="country_id" ref="base.ma"/>
+      <field name="code_postal">80000</field>
+      <field name="active">True</field>
+    </record>
+  </data>
+</odoo>

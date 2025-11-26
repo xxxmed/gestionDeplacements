@@ -1,0 +1,93 @@
+@startuml Diagramme de Classes - Gestion des Déplacements
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor<<Odoo>> LightBlue
+    BackgroundColor<<Custom>> LightGreen
+    BackgroundColor<<Wizard>> LightYellow
+    BackgroundColor<<Mixin>> LightGray
+}
+
+' Classes Odoo existantes
+class HrEmployee <<Odoo>>
+
+class ResCountry <<Odoo>>
+
+class ResCurrency <<Odoo>>
+
+class MailThread <<Mixin>>
+
+class MailActivityMixin <<Mixin>>
+
+' Classes personnalisées
+class DemandeDeplacement <<Custom>> {
+    + employee_id : Many2one
+    + manager_id : Many2one
+    + date_debut : Date
+    + date_fin : Date
+    + destination_city_id : Many2one
+    + mode_transport : Selection
+    + montant_frais : Monetary
+    + state : Selection
+}
+
+class Ville <<Custom>> {
+    + name : String
+    + country_id : Many2one
+}
+
+class ServiceVehicule <<Custom>> {
+    + name : String
+    + immatriculation : String
+}
+
+class DemandeRefusWizard <<Wizard>> {
+    + motif_refus : Text
+    + demande_id : Many2one
+}
+
+enum "ModeTransport" {
+    train
+    autocar
+    avion
+    vehicule_service
+}
+
+enum "ClasseVoyage" {
+    economique
+    business
+}
+
+enum "State" {
+    brouillon
+    soumis
+    approuve
+    en_cours
+    termine
+    refuse
+    annule
+}
+
+' Relations entre classes
+
+HrEmployee "1" -- "0..*" DemandeDeplacement : crée >
+HrEmployee "1" -- "0..*" DemandeDeplacement : valide >
+
+Ville "1" -- "0..*" DemandeDeplacement : destination
+
+ResCountry "1" -- "0..*" Ville : contient
+
+ServiceVehicule "0..1" -- "0..*" DemandeDeplacement : utilisé pour
+
+ResCurrency "1" -- "0..*" DemandeDeplacement : devise
+
+DemandeDeplacement ..> ModeTransport : utilise
+DemandeDeplacement ..> ClasseVoyage : utilise
+DemandeDeplacement ..> State : état
+
+DemandeRefusWizard "1" --> "1" DemandeDeplacement : refuse
+
+DemandeDeplacement --|> MailThread
+DemandeDeplacement --|> MailActivityMixin
+
+@enduml

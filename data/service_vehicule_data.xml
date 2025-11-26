@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="0">
+    
+    <!-- Véhicules de service de l'entreprise -->
+    <record id="service_vehicule_1" model="gestion.deplacement.service.vehicule">
+      <field name="name">Peugeot 208</field>
+      <field name="immatriculation">ABC-123-MA</field>
+      <field name="marque">Peugeot</field>
+      <field name="modele">208</field>
+    </record>
+
+    <record id="service_vehicule_2" model="gestion.deplacement.service.vehicule">
+      <field name="name">Renault Clio</field>
+      <field name="immatriculation">XYZ-456-MA</field>
+      <field name="marque">Renault</field>
+      <field name="modele">Clio</field>
+    </record>
+
+    <record id="service_vehicule_3" model="gestion.deplacement.service.vehicule">
+      <field name="name">Dacia Logan</field>
+      <field name="immatriculation">DEF-789-MA</field>
+      <field name="marque">Dacia</field>
+      <field name="modele">Logan</field>
+    </record>
+
+    <record id="service_vehicule_4" model="gestion.deplacement.service.vehicule">
+      <field name="name">Toyota Corolla</field>
+      <field name="immatriculation">GHI-012-MA</field>
+      <field name="marque">Toyota</field>
+      <field name="modele">Corolla</field>
+    </record>
+
+    <record id="service_vehicule_5" model="gestion.deplacement.service.vehicule">
+      <field name="name">Volkswagen Golf</field>
+      <field name="immatriculation">JKL-345-MA</field>
+      <field name="marque">Volkswagen</field>
+      <field name="modele">Golf</field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ============================================ -->
+        <!-- MENU PRINCIPAL -->
+        <!-- ============================================ -->
+
+        <!-- Menu racine (add action so it appears in App switcher) -->
+        <record id="action_gestion_deplacement_root" model="ir.actions.act_window">
+            <field name="name">Déplacements</field>
+            <field name="res_model">gestion.deplacement.demande</field>
+            <field name="view_mode">list,form,kanban</field>
+            <field name="help" type="html">
+                <p>Bienvenue dans la gestion des déplacements. Créez une demande ou consultez vos déplacements.</p>
+            </field>
+        </record>
+
+        <menuitem id="menu_gestion_deplacement_root"
+                  name="Déplacements"
+                  sequence="10"
+                  action="action_gestion_deplacement_root"/>
+
+        <!-- ============================================ -->
+        <!-- MENU EMPLOYÉ -->
+        <!-- ============================================ -->
+
+        <menuitem id="menu_mes_deplacements"
+                  name="Mes Déplacements"
+                  parent="menu_gestion_deplacement_root"
+                  sequence="10"/>
+
+        <menuitem id="menu_mes_demandes"
+                  name="Mes Demandes"
+                  parent="menu_mes_deplacements"
+                  action="action_mes_demandes"
+                  sequence="10"/>
+
+        <menuitem id="menu_nouvelle_demande"
+                  name="Nouvelle Demande"
+                  parent="menu_mes_deplacements"
+                  action="action_demande_deplacement"
+                  sequence="20"/>
+        
+    <!-- (Removed temporary test menu) -->
+
+        <!-- ============================================ -->
+        <!-- MENU MANAGER -->
+        <!-- ============================================ -->
+
+        <menuitem id="menu_validation"
+                  name="Validation"
+                  parent="menu_gestion_deplacement_root"
+                  sequence="20"
+                  groups="gestionDeplacements.group_deplacement_manager"/>
+
+        <menuitem id="menu_demandes_a_valider"
+                  name="À Valider"
+                  parent="menu_validation"
+                  action="action_demandes_a_valider"
+                  sequence="10"
+                  groups="gestionDeplacements.group_deplacement_manager"/>
+
+        <!-- ============================================ -->
+        <!-- MENU DAF -->
+        <!-- ============================================ -->
+
+        <menuitem id="menu_gestion"
+                  name="Gestion"
+                  parent="menu_gestion_deplacement_root"
+                  sequence="30"
+                  groups="gestionDeplacements.group_deplacement_daf"/>
+
+        <menuitem id="menu_demandes_a_traiter"
+                  name="À Traiter"
+                  parent="menu_gestion"
+                  action="action_demandes_a_traiter"
+                  sequence="10"
+                  groups="gestionDeplacements.group_deplacement_daf"/>
+
+        <menuitem id="menu_toutes_demandes"
+                  name="Toutes les Demandes"
+                  parent="menu_gestion"
+                  action="action_demande_deplacement"
+                  sequence="20"
+                  groups="gestionDeplacements.group_deplacement_daf"/>
+
+        <!-- ============================================ -->
+        <!-- MENU CONFIGURATION -->
+        <!-- ============================================ -->
+
+        <menuitem id="menu_configuration"
+                  name="Configuration"
+                  parent="menu_gestion_deplacement_root"
+                  sequence="100"
+                  groups="gestionDeplacements.group_deplacement_daf"/>
+
+        <menuitem id="menu_villes"
+                  name="Villes"
+                  parent="menu_configuration"
+                  action="action_ville"
+                  sequence="10"
+                  groups="gestionDeplacements.group_deplacement_daf"/>
+
+    </data>
+</odoo>
